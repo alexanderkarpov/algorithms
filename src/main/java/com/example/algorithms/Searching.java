@@ -63,7 +63,34 @@ public class Searching {
         } finally {
             System.out.println("Binary search iter count: " + iterCount);
         }
+    }
 
+    public static <T extends Comparable> T findKthLargest(List<T> list, int k) {
+        if(list.isEmpty()) {
+            throw new IllegalArgumentException("empty list");
+        }
+
+        T max = list.get(0);
+        for (int i = 0; i < k; i++) {
+            int indexOfMax = 0;
+            max = list.get(indexOfMax);
+
+            for (int j = 1; j < list.size() - i; j++) {
+                if (list.get(j).compareTo(max) > 0) {
+                    indexOfMax = j;
+                    max = list.get(indexOfMax);
+                }
+            }
+
+            int indexOfLastNotChecked = list.size() - i - 1;
+            if(indexOfMax != indexOfLastNotChecked) {
+                T buf = list.get(indexOfLastNotChecked);
+                list.set(indexOfLastNotChecked, list.get(indexOfMax));
+                list.set(indexOfMax, buf);
+            }
+        }
+
+        return max;
 
     }
 
