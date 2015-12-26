@@ -12,19 +12,38 @@ public class App {
 
     public static void main(String... args) {
 
+        testInsertionSearch();
+//        testFindKthLargest();
 //        testBinarySearch();
-        testFindKthLargest();
 
 
     }
 
-    private static void testBinarySearch() {
-        List<Integer> list = new ArrayList<>();
-        Random random = new Random();
+    private static void testInsertionSearch() {
+        List<Integer> list = makeIntArrayList(16, 1000);
+        System.out.println("source: " + list);
+        Sorting.insertionSort(list);
+        System.out.println("sorted: " + list);
 
-        for (int i = 0; i < 33; i++) {
-            list.add(random.nextInt(1000));
-        }
+    }
+
+
+    private static void testFindKthLargest() {
+        List<Integer> list = makeIntArrayList(10, 1000);
+
+        int max6 = Searching.findKthLargest(list, 6);
+
+        System.out.println("list: " + list);
+        System.out.println("6th largest: " + max6);
+        Collections.sort(list);
+        System.out.println("sorted list: " + list);
+        System.out.println("6th largest: " + list.get(list.size() - 6));
+
+    }
+
+
+    private static void testBinarySearch() {
+        List<Integer> list = makeIntArrayList(33, 1000);
 
         Collections.sort(list);
 
@@ -39,21 +58,16 @@ public class App {
         System.out.println("index of target: " + index);
     }
 
-    private static void testFindKthLargest() {
-        List<Integer> list = new ArrayList<>();
+    private static List<Integer> makeIntArrayList(int size, int maxValue) {
+        List<Integer> list = new ArrayList<>(size);
         Random random = new Random();
 
-        for (int i = 0; i < 10; i++) {
-            list.add(random.nextInt(1000));
+        for (int i = 0; i < size; i++) {
+            list.add(random.nextInt(maxValue));
         }
 
-        int max6 = Searching.findKthLargest(list, 6);
-
-        System.out.println("list: " + list);
-        System.out.println("6th largest: " + max6);
-        Collections.sort(list);
-        System.out.println("sorted list: " + list);
-        System.out.println("6th largest: " + list.get(list.size() - 6));
-
+        return list;
     }
+
+
 }
