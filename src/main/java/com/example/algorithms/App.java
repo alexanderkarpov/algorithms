@@ -12,6 +12,10 @@ public class App {
 
     public static void main(String... args) {
 
+//        List<Integer> list = makeIntArrayList(16, 1000);
+//        System.out.println(list);
+//        System.out.println(list.subList(1, 2));
+
         testSort();
 //        testFindKthLargest();
 //        testBinarySearch();
@@ -22,8 +26,9 @@ public class App {
     private static void testSort() {
         List<Integer> list = makeIntArrayList(16, 1000);
         System.out.println("source: " + list);
+        Sorting.mergeSort(list, 0, list.size()-1);
 //        Sorting.insertionSort(list);
-        Sorting.bubbleSort(list);
+//        Sorting.bubbleSort(list);
         System.out.println("sorted: " + list);
 
     }
