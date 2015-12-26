@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Sorting {
 
+    // O(N^2)
     public static <T extends Comparable> void insertionSort(List<T> list) {
 
         for (int i = 1; i < list.size(); i++) {
@@ -18,6 +19,25 @@ public class Sorting {
                 j--;
             }
             list.set(j + 1, workingElement);
+        }
+
+    }
+
+    public static <T extends Comparable> void bubbleSort(List<T> list) {
+
+        boolean swap = true;
+
+        while(swap) {
+            swap = false;
+            T item = list.get(0);
+            for (int i = 1; i < list.size(); i++) {
+                if (item.compareTo(list.get(i))>0) {
+
+                    list.set(i-1, list.get(i));
+                    list.set(i, item);
+                    swap = true;
+                }
+            }
         }
 
     }

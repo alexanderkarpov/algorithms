@@ -66,7 +66,7 @@ public class Searching {
     }
 
     public static <T extends Comparable> T findKthLargest(List<T> list, int k) {
-        if(list.isEmpty()) {
+        if (list.isEmpty()) {
             throw new IllegalArgumentException("empty list");
         }
 
@@ -82,8 +82,9 @@ public class Searching {
                 }
             }
 
+            //swap elements
             int indexOfLastNotChecked = list.size() - i - 1;
-            if(indexOfMax != indexOfLastNotChecked) {
+            if (indexOfMax != indexOfLastNotChecked) {
                 T buf = list.get(indexOfLastNotChecked);
                 list.set(indexOfLastNotChecked, list.get(indexOfMax));
                 list.set(indexOfMax, buf);

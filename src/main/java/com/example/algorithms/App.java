@@ -12,17 +12,18 @@ public class App {
 
     public static void main(String... args) {
 
-        testInsertionSearch();
+        testSort();
 //        testFindKthLargest();
 //        testBinarySearch();
 
 
     }
 
-    private static void testInsertionSearch() {
+    private static void testSort() {
         List<Integer> list = makeIntArrayList(16, 1000);
         System.out.println("source: " + list);
-        Sorting.insertionSort(list);
+//        Sorting.insertionSort(list);
+        Sorting.bubbleSort(list);
         System.out.println("sorted: " + list);
 
     }
