@@ -26,7 +26,7 @@ public class App {
 
 
         System.out.println("source: " + list);
-        Sorting.quickSort(list, 0, list.size()-1);
+        Sorting.quickSort(list, 0, list.size() - 1);
 //        Sorting.mergeSort(list, 0, list.size()-1);
 //        Sorting.insertionSort(list);
 //        Sorting.bubbleSort(list);

@@ -7,28 +7,39 @@ import java.util.*;
  */
 public class Sorting {
 
-    public static <T extends Comparable> void quickSort(List<T> list, int first, int last) {
-        if(first < last) {
-            int i = first;
-            int j = last;
-            int cur = i - (i - j) / 2;
-            while(i < j) {
-                while (i < cur && (list.get(i)).compareTo(list.get(cur)) <= 0) {
-                    i++;
-                }
-                while (j > cur && (list.get(cur).compareTo(list.get(j)) <= 0)) {
-                    j--;
-                }
-                if (i < j) {
-                    Collections.swap(list, i, j);
-                    cur = (i == cur) ? j : i;
-                }
+    public static <T extends Comparable> void quickSort(List<T> list, int left, int right) {
+        //System.out.println("sorting since "+left +" to "+right+": "+list.subList(left, right));
+
+        int l = left;
+        int r = right;
+        T mid = list.get((l + r) / 2);
+
+//        System.out.println("left="+left+", right="+right+ ", mid = "+mid);
+
+        while (l<=r) {
+            while (list.get(l).compareTo(mid) < 0 && l <= right) {
+                l++;
             }
-
-            quickSort(list, first, cur);
-            quickSort(list, cur + 1, last);
-
+            while (list.get(r).compareTo(mid) > 0 && r >= left) {
+                r--;
+            }
+            if (l <= r) {
+                Collections.swap(list, l++, r--);
+            }
         }
+
+//        System.out.println("next iteration: " + list);
+//        System.out.println("l="+l+", r="+r);
+
+        if(r > left) {
+            quickSort(list, left, r);
+        }
+        if(l < right) {
+            quickSort(list, l, right);
+        }
+
+
+
     }
 
     //O(2logN)
