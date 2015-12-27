@@ -21,10 +21,7 @@ public class Sorting {
                 }
                 if (i < j) {
                     Collections.swap(list, i, j);
-                    if(i == cur)
-                        cur = j;
-                    else
-                        cur = i;
+                    cur = (i == cur) ? j : i;
                 }
             }
 
