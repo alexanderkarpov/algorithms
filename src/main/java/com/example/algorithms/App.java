@@ -1,9 +1,6 @@
 package com.example.algorithms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by alexander on 12/25/15.
@@ -24,9 +21,13 @@ public class App {
     }
 
     private static void testSort() {
-        List<Integer> list = makeIntArrayList(16, 1000);
+//        List<Integer> list = makeIntArrayList(16, 1000);
+        List<Integer> list = Arrays.asList(5,8,17,25,10,15,2,7,6,18);
+
+
         System.out.println("source: " + list);
-        Sorting.mergeSort(list, 0, list.size()-1);
+        Sorting.quickSort(list, 0, list.size()-1);
+//        Sorting.mergeSort(list, 0, list.size()-1);
 //        Sorting.insertionSort(list);
 //        Sorting.bubbleSort(list);
         System.out.println("sorted: " + list);

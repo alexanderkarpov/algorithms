@@ -7,6 +7,34 @@ import java.util.*;
  */
 public class Sorting {
 
+    public static <T extends Comparable> void quickSort(List<T> list, int first, int last) {
+        if(first < last) {
+            int i = first;
+            int j = last;
+            int cur = i - (i - j) / 2;
+            while(i < j) {
+                while (i < cur && (list.get(i)).compareTo(list.get(cur)) <= 0) {
+                    i++;
+                }
+                while (j > cur && (list.get(cur).compareTo(list.get(j)) <= 0)) {
+                    j--;
+                }
+                if (i < j) {
+                    Collections.swap(list, i, j);
+                    if(i == cur)
+                        cur = j;
+                    else
+                        cur = i;
+                }
+            }
+
+            quickSort(list, first, cur);
+            quickSort(list, cur + 1, last);
+
+        }
+    }
+
+    //O(2logN)
     public static <T extends Comparable> void mergeSort(List<T> list, int first, int last) {
         if (first < last) {
             int middle = (first + last) >> 1;
