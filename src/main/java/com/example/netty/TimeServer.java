@@ -32,7 +32,9 @@ public class TimeServer {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast(
+                                    new TimeEncoder(),
                                     new TimeServerHandler()
+
 //                                    new DiscardServerHandler()
                             );
                         }
