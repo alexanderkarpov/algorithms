@@ -12,11 +12,11 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 /**
  * Created by alexander on 12/27/15.
  */
-public class DiscardServer {
+public class TimeServer {
 
     private final int port;
 
-    public DiscardServer(int port) {
+    public TimeServer(int port) {
         this.port = port;
     }
 
@@ -57,7 +57,7 @@ public class DiscardServer {
 
     public static void main(String... args) {
         try{
-            new DiscardServer(9090).run();
+            new TimeServer(9090).run();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
