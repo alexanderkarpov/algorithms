@@ -1,13 +1,11 @@
 package com.example.netty.ws.text;
 
-import java.util.Locale;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.Locale;
 
 /**
  * Originally copypasted from http://netty.io/4.0/xref/io/netty/example/http/websocketx/server/WebSocketFrameHandler.html
@@ -15,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketFrameHandler.class);
+//    private static final Logger logger = LoggerFactory.getLogger(WebSocketFrameHandler.class);
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
@@ -23,14 +21,32 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
         if (frame instanceof TextWebSocketFrame) {
             // Send the uppercase string back.
             String request = ((TextWebSocketFrame) frame).text();
-            logger.info("{} received {}", ctx.channel(), request);
+            System.out.println(ctx.channel() + " received " + request);
+//            logger.info("{} received {}", ctx.channel(), request);
             ctx.channel().writeAndFlush(new TextWebSocketFrame(request.toUpperCase(Locale.US)));
         } else {
             String message = "unsupported frame type: " + frame.getClass().getName();
             throw new UnsupportedOperationException(message);
         }
+    }
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelActive");
+    }
 
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelInactive");
+    }
 
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelRegistered");
+    }
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelUnregistered");
     }
 }
