@@ -29,6 +29,7 @@ public class TimeClient {
                 public void initChannel(SocketChannel ch) throws Exception {
                     ch.pipeline().addLast(
                             new TimeDecoder(),
+                            new TimeEncoder(),
                             new TimeClientHandler());
                 }
             });
@@ -37,7 +38,8 @@ public class TimeClient {
             ChannelFuture f = b.connect(host, port).sync(); // (5)
 
             // Wait until the connection is closed.
-            f.channel().closeFuture().sync();
+//            f.channel().closeFuture().sync();
+            Thread.sleep(30000);
         } catch (Exception ex) {
             ex.printStackTrace();
         }finally {

@@ -19,9 +19,10 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
         f.addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture future) {
-                assert f == future;
-                ChannelFuture closeFuture = ctx.close();
-                closeFuture.addListener((f) -> System.out.println("The channel is closed")  );
+                System.out.println("the message was successfully sent");
+//                assert f == future;
+//                ChannelFuture closeFuture = ctx.close();
+//                closeFuture.addListener((f) -> System.out.println("The channel is closed")  );
             }
         }); // (4)
     }
@@ -31,5 +32,17 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
         // Close the connection when an exception is raised.
         cause.printStackTrace();
         ctx.close();
+    }
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        UnixTime m = (UnixTime) msg;
+        System.out.println("Received: " + m);
+//        ctx.close();
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("The channel is closed");
     }
 }
