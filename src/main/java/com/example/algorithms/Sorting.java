@@ -1,6 +1,9 @@
 package com.example.algorithms;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by alexander on 12/26/15.
@@ -16,7 +19,7 @@ public class Sorting {
 
 //        System.out.println("left="+left+", right="+right+ ", mid = "+mid);
 
-        while (l<=r) {
+        while (l <= r) {
             while (list.get(l).compareTo(mid) < 0 && l <= right) {
                 l++;
             }
@@ -31,13 +34,12 @@ public class Sorting {
 //        System.out.println("next iteration: " + list);
 //        System.out.println("l="+l+", r="+r);
 
-        if(r > left) {
+        if (r > left) {
             quickSort(list, left, r);
         }
-        if(l < right) {
+        if (l < right) {
             quickSort(list, l, right);
         }
-
 
 
     }

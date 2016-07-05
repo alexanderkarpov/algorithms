@@ -5,12 +5,12 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
- *  Поиск элемента односвязного списка. (Задача из собеседования Google)
- *
- *  Придумайте алгоритм поиска n-го с конца элемента односвязного списка, сложность которого будет равна O(N).
- *  Алгоритм не должен использовать дополнительные структуры - массивы, списки и т.д., только примитивные типы.
- *  Исходные данные: "голова" односвязного списка и индекс (с конца) искомого элемента.
- *
+ * Поиск элемента односвязного списка. (Задача из собеседования Google)
+ * <p>
+ * Придумайте алгоритм поиска n-го с конца элемента односвязного списка, сложность которого будет равна O(N).
+ * Алгоритм не должен использовать дополнительные структуры - массивы, списки и т.д., только примитивные типы.
+ * Исходные данные: "голова" односвязного списка и индекс (с конца) искомого элемента.
+ * <p>
  * Created by alexander on 12/26/15.
  */
 public class InListSearch {
@@ -23,7 +23,7 @@ public class InListSearch {
             list.add(i);
         }
 
-        for(int item : list) {
+        for (int item : list) {
             System.out.println(item);
         }
 
@@ -44,7 +44,7 @@ public class InListSearch {
         public void add(T item) {
 //            Node<T> newNode = new Node<>(item, this.head);
             Node<T> next = first;
-            while(next.getNext() != null) {
+            while (next.getNext() != null) {
                 next = next.getNext();
             }
             next.setNext(new Node<>(item));
@@ -56,8 +56,8 @@ public class InListSearch {
             Iterator<T> secondIterator = iterator();
 
             int i = 0;
-            while(i < index){
-                if(firstIterator.hasNext()){
+            while (i < index) {
+                if (firstIterator.hasNext()) {
                     firstIterator.next();
                     i++;
                 } else {
@@ -65,11 +65,11 @@ public class InListSearch {
                 }
             }
 
-            while(firstIterator.hasNext()) {
+            while (firstIterator.hasNext()) {
                 firstIterator.next();
                 T value = secondIterator.next();
 
-                if(!firstIterator.hasNext()){
+                if (!firstIterator.hasNext()) {
                     return value;
                 }
             }
@@ -105,7 +105,8 @@ public class InListSearch {
 
         @Override
         public Spliterator<T> spliterator() {
-            throw new UnsupportedOperationException("not implemented yet");        }
+            throw new UnsupportedOperationException("not implemented yet");
+        }
     }
 
     private static class Node<T> {

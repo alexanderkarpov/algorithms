@@ -15,7 +15,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
         System.out.println("Received: " + m);
 
         UnixTime unixTime = new UnixTime(m.value() + 60);
-        System.out.println("Sending '"+unixTime+"'");
+        System.out.println("Sending '" + unixTime + "'");
         final ChannelFuture f = ctx.writeAndFlush(unixTime); // (3)
 
 //        ctx.close();

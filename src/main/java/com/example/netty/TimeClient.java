@@ -42,7 +42,7 @@ public class TimeClient {
             Thread.sleep(30000);
         } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             workerGroup.shutdownGracefully();
         }
 

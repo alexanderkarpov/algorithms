@@ -16,10 +16,10 @@ public class PingPong implements Runnable {
     @Override
     public void run() {
 
-        while(!Thread.interrupted()) {
+        while (!Thread.interrupted()) {
             synchronized (stateHolder) {
-                try{
-                    while(stateHolder.getState() != targetState){
+                try {
+                    while (stateHolder.getState() != targetState) {
                         stateHolder.wait();
                     }
                     stateHolder.setState(!stateHolder.getState());

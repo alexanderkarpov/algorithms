@@ -20,6 +20,14 @@ public class TimeServer {
         this.port = port;
     }
 
+    public static void main(String... args) {
+        try {
+            new TimeServer(9090).run();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void run() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -54,14 +62,5 @@ public class TimeServer {
             bossGroup.shutdownGracefully();
         }
 
-    }
-
-
-    public static void main(String... args) {
-        try{
-            new TimeServer(9090).run();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 }
