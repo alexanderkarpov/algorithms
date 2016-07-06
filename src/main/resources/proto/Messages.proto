@@ -1,0 +1,13 @@
+option java_multiple_files = true;
+
+option java_generate_equals_and_hash = true;
+
+option java_package = "com.example.netty.proto.messages";
+
+option java_outer_classname = "ContainerMessages";
+
+message Container {
+    required uint32 messageType = 1;
+    optional bytes messageBody = 2;
+    optional string msgId = 3;
+}
