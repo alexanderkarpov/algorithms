@@ -23,8 +23,6 @@ public class VersionInfoHandler extends ByteToMessageDecoder {
                     ProtoEncoder.DEFAULT,
 
                     new ProtoClientExtendedHandler());
-
-
         }
 
 
