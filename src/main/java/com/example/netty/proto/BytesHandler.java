@@ -7,8 +7,10 @@ public class BytesHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        byte[] bytes = {0, 1, 2, 3};
-        ctx.channel().writeAndFlush(bytes);
+        byte[] bytes = {0, 2, 10, 20, 30};
+
+
+        ctx.channel().write(bytes);
     }
 
     @Override

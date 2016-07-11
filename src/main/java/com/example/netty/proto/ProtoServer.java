@@ -21,7 +21,7 @@ public class ProtoServer {
 
     public static void main(String... args) {
         try {
-            new ProtoServer(9091).run();
+            new ProtoServer(8084).run();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -60,6 +60,8 @@ public class ProtoServer {
             // In this example, this does not happen, but you can do that to gracefully
             // shut down your server.
             f.channel().closeFuture().sync();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();

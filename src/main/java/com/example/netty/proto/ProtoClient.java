@@ -15,7 +15,7 @@ public class ProtoClient {
 
     public static void main(String... args) {
         String host = "localhost";
-        int port = 9091;
+        int port = 8084;
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {
