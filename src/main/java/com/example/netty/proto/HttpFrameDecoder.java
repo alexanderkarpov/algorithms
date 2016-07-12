@@ -11,7 +11,7 @@ public class HttpFrameDecoder extends ByteToMessageDecoder {
     private static final byte HTTP_END_OF_LINE = 0x0A;
 
     @Override
-    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         in.markReaderIndex();
 
         int length = 0;
