@@ -12,6 +12,11 @@ public class BytesClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
+//        sendProto(ctx);
+        sendHttp(ctx);
+    }
+
+    private void sendProto(ChannelHandlerContext ctx) {
         String httpHandshakeRequest =
                 "GET http://server.example.com:443/ HTTP/1.1\n" +
                         "Upgrade: protobuf\n" +
@@ -20,7 +25,30 @@ public class BytesClientHandler extends ChannelInboundHandlerAdapter {
 
         sendBytes(ctx, httpHandshakeRequest.getBytes());
         sendBytes(ctx, protoMessageBytes);
+        sendBytes(ctx, protoMessageBytes);
+        sendBytes(ctx, protoMessageBytes);
+        sendBytes(ctx, protoMessageBytes);
+
     }
+
+    private void sendHttp(ChannelHandlerContext ctx) {
+        String httpHandshakeRequest =
+                "GET http://server.example.com:443/ HTTP/1.1\n" +
+                        "Upgrade: websocket\n" +
+                        "\n";
+
+        sendBytes(ctx, httpHandshakeRequest.getBytes());
+
+        String httpData =
+                "GET http://server.example.com:443/ HTTP/1.1\n" +
+                        "info: preved\n" +
+                        "\n";
+
+        sendBytes(ctx, httpData.getBytes());
+        sendBytes(ctx, httpData.getBytes());
+        sendBytes(ctx, httpData.getBytes());
+    }
+
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -37,12 +65,11 @@ public class BytesClientHandler extends ChannelInboundHandlerAdapter {
         ctx.close();
     }
 
-    private void sendBytes(ChannelHandlerContext ctx,  byte[] bytes) {
+    private void sendBytes(ChannelHandlerContext ctx, byte[] bytes) {
         System.out.println("Sending " + bytes.length + " bytes:" + Arrays.toString(bytes));
         final ChannelFuture f = ctx.writeAndFlush(bytes);
         f.addListener((ChannelFutureListener) future -> System.out.println("!! the message was successfully sent"));
     }
-
 
 
 }

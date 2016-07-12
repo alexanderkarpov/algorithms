@@ -45,6 +45,7 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
                         addProtoHandlers(ctx.pipeline());
                         break;
                     case "websocket":
+                        readBuffer.retain();
                         addHttpHandlers(ctx.pipeline());
                         out.add(readBuffer);
                         break;

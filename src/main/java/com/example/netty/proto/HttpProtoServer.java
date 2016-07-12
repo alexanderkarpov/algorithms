@@ -43,13 +43,6 @@ public class HttpProtoServer {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast(new FirstFrameDecoder());
 
-//
-//                            pipeline.addLast("HttpFrameDecoder", new HttpFrameDecoder());
-//
-//                            pipeline.addLast("HttpServerCodec", new HttpServerCodec());
-//                            pipeline.addLast("HttpObjectAggregator", new HttpObjectAggregator(1024000));
-//                            pipeline.addLast("HttpRequestHandler", new HttpRequestHandler());
-
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
