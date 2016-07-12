@@ -6,6 +6,7 @@ import com.google.protobuf.CodedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
@@ -57,6 +58,6 @@ public class ProtoEncoder extends MessageToByteEncoder<Container> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Container msg, ByteBuf out) throws Exception {
-        encode(msg.getMessageType(), msg.getMessageBody().toByteArray(), out);
+        encode(msg.getMessageType(), msg.toByteString().toByteArray(), out);
     }
 }

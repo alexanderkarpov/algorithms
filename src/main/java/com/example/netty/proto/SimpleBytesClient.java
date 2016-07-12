@@ -8,6 +8,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.bytes.ByteArrayDecoder;
+import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 public class SimpleBytesClient {
 
@@ -25,7 +28,12 @@ public class SimpleBytesClient {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
                     ch.pipeline().addLast(
-                            new BytesDecoder(),
+                            new ByteArrayDecoder(),
+
+                           // new ProtobufVarint32LengthFieldPrepender(),
+                            //ProtoEncoder.DEFAULT,
+                            new ByteArrayEncoder(),
+
                             new BytesHandler());
                 }
             });

@@ -12,6 +12,15 @@ public class ProtoServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
         System.out.println("The channel is opened");
+//
+//        byte[] payload = {0, 10, 20, 30};
+//        Container protoMessage = Container.newBuilder()
+//                .setMsgId("MEDVED-" + System.currentTimeMillis())
+//                .setMessageType(2)
+//                .setMessageBody(ByteString.copyFrom(payload))
+//                .build();
+//        System.out.println("Sending '" + protoMessage + "'");
+//        ctx.writeAndFlush(protoMessage); // (3)
     }
 
     @Override
@@ -25,15 +34,15 @@ public class ProtoServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         Container m = (Container) msg;
         System.out.println("Received: " + m);
-
-        byte[] payload = {0, 10, 20, 30};
-        Container protoMessage = Container.newBuilder()
-                .setMsgId("MEDVED-" + System.currentTimeMillis())
-                .setMessageType(2)
-                .setMessageBody(ByteString.copyFrom(payload))
-                .build();
-        System.out.println("Sending '" + protoMessage + "'");
-        ctx.writeAndFlush(protoMessage); // (3)
+//
+//        byte[] payload = {0, 10, 20, 30};
+//        Container protoMessage = Container.newBuilder()
+//                .setMsgId("MEDVED-" + System.currentTimeMillis())
+//                .setMessageType(2)
+//                .setMessageBody(ByteString.copyFrom(payload))
+//                .build();
+//        System.out.println("Sending '" + protoMessage + "'");
+//        ctx.writeAndFlush(protoMessage); // (3)
     }
 
     @Override
