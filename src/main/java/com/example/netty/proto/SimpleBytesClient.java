@@ -10,7 +10,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.bytes.ByteArrayDecoder;
 import io.netty.handler.codec.bytes.ByteArrayEncoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 public class SimpleBytesClient {
 
@@ -34,7 +33,7 @@ public class SimpleBytesClient {
                             //ProtoEncoder.DEFAULT,
                             new ByteArrayEncoder(),
 
-                            new BytesHandler());
+                            new BytesClientHandler());
                 }
             });
 
