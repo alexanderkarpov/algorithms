@@ -14,7 +14,8 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 public class FirstFrameDecoder extends ByteToMessageDecoder {
 
-    private static final byte HTTP_END_OF_LINE = 0x0A;
+    private static final byte END_OF_LINE = 0x0A;
+    private static final byte RETURN_OF_CURSOR = 0x0D;
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
@@ -26,10 +27,16 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
         while (in.isReadable()) {
             length++;
             byte nextByte = in.readByte();
-            if (currentByte == HTTP_END_OF_LINE && nextByte == HTTP_END_OF_LINE) {
+
+            if(nextByte == RETURN_OF_CURSOR && in.isReadable()) {
+                length++;
+                nextByte = in.readByte();
+            }
+
+            if (currentByte == END_OF_LINE && nextByte == END_OF_LINE) {
                 in.resetReaderIndex();
                 byte[] bytes = new byte[length];//= in.readBytes(length);
-                ByteBuf readBuffer = in.readBytes(bytes);
+                in.readBytes(bytes);
                 System.out.println("Unread bytes: " + in.readableBytes());
                 ByteBuf unreadBuffer = in.readBytes(in.readableBytes());
 
@@ -48,9 +55,10 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
                         addProtoHandlers(ctx.pipeline());
                         break;
                     case "websocket":
-                        readBuffer.retain();
+                        in.resetReaderIndex();
+                        in.retain();
                         addHttpHandlers(ctx.pipeline());
-                        out.add(readBuffer);
+                        out.add(in);
                         break;
                     default:
                         System.out.println("Unsupported protocol:" + protocol);
@@ -76,7 +84,7 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
 
     private String detectProtocol(byte[] bytes) {
         String str = new String(bytes);
-        System.out.println(str);
+        System.out.println("detectProtocol: " + str);
 
         String[] lines = str.split("\\n");
         System.out.println(Arrays.toString(lines));
