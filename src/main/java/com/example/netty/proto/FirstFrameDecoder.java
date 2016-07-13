@@ -38,7 +38,7 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
                 byte[] bytes = new byte[length];//= in.readBytes(length);
                 in.readBytes(bytes);
                 System.out.println("Unread bytes: " + in.readableBytes());
-                ByteBuf unreadBuffer = in.readBytes(in.readableBytes());
+
 
 
                 String protocol = detectProtocol(bytes);
@@ -52,7 +52,9 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
 
                 switch (protocol) {
                     case "protobuf":
+                        ByteBuf unreadBuffer = in.readBytes(in.readableBytes());
                         addProtoHandlers(ctx.pipeline());
+                        out.add(unreadBuffer);
                         break;
                     case "websocket":
                         in.resetReaderIndex();
@@ -66,7 +68,7 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
                         return;
                 }
 
-                out.add(unreadBuffer);
+//                out.add(unreadBuffer);
 
                 return;
             }
