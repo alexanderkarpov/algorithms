@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
-import io.netty.buffer.UnpooledByteBufAllocator;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -39,6 +37,11 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
                 String protocol = detectProtocol(bytes);
 
                 System.out.println("Protocol: " + protocol);
+                if(protocol == null) {
+                    System.out.println("Protocol is not defined");
+                    ctx.channel().close();
+                    return;
+                }
 
                 switch (protocol) {
                     case "protobuf":
@@ -63,6 +66,12 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
         }
 
         in.resetReaderIndex();
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        ctx.channel().close();
     }
 
     private String detectProtocol(byte[] bytes) {
