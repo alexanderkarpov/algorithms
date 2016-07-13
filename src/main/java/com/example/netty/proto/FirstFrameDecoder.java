@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -52,15 +53,23 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
 
                 switch (protocol) {
                     case "protobuf":
-                        ByteBuf unreadBuffer = in.readBytes(in.readableBytes());
+//                        ByteBuf unreadBuffer = in.readBytes(in.readableBytes());
+
+                        ByteBuf unreadBuffer = Unpooled.buffer(in.readableBytes());
+                        in.readBytes(unreadBuffer, in.readableBytes());
+
                         addProtoHandlers(ctx.pipeline());
                         out.add(unreadBuffer);
                         break;
                     case "websocket":
                         in.resetReaderIndex();
-                        in.retain();
+
+                        ByteBuf newOut = Unpooled.buffer(in.readableBytes());
+                        in.readBytes(newOut, in.readableBytes());
+
+//                        in.retain();
                         addHttpHandlers(ctx.pipeline());
-                        out.add(in);
+                        out.add(newOut);
                         break;
                     default:
                         System.out.println("Unsupported protocol:" + protocol);
