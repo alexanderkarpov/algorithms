@@ -104,7 +104,7 @@ public class FirstFrameDecoder extends ByteToMessageDecoder {
             if (line.trim().startsWith("Upgrade:")) {
                 String[] header = line.trim().split(":");
                 if (header.length == 2) {
-                    return header[1].trim();
+                    return header[1].trim().toLowerCase();
                 }
             }
         }
