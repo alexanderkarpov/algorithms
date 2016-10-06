@@ -16,13 +16,18 @@ public class BytesClientHandler extends ChannelInboundHandlerAdapter {
 //        sendHttp(ctx);
     }
 
-    private void sendProto(ChannelHandlerContext ctx) {
+    private void sendProto(ChannelHandlerContext ctx) throws InterruptedException {
         String httpHandshakeRequest = "GET /websocket HTTP/1.1\r\n" +
                 "Upgrade: protobuf\r\n" +
                 "\r\n";
         byte[] protoMessageBytes = {31, 2, 8, 2, 18, 4, 0, 10, 20, 30, 26, 20, 77, 69, 68, 86, 69, 68, 45, 49, 52, 54, 56, 51, 48, 55, 48, 53, 56, 54, 56, 48};
 
         sendBytes(ctx, httpHandshakeRequest.getBytes());
+
+        ctx.flush();
+
+        Thread.sleep(5000);
+
         sendBytes(ctx, protoMessageBytes);
         sendBytes(ctx, protoMessageBytes);
         sendBytes(ctx, protoMessageBytes);
